@@ -1,0 +1,27 @@
+from typing import Dict, List
+import json
+from llm_sdk import Small_LLM_Model
+
+
+def load_and_clean_vocab(model: Small_LLM_Model) -> Dict[int, str]:
+    """
+    Loads the vocabulary file from the SDK and cleans the tokens
+    by converting tokenizer space symbols back into standard spaces.
+    """
+    vocab_path = model.get_path_to_vocab_file()
+
+    try:
+        with open(vocab_path, "r", encoding="utf-8") as f:
+            raw_vocab = json.load(f)
+    except Exception as e:
+        raise RuntimeError(f"Failed to read vocabulary file at {vocab_path}: {e}")
+
+    id_to_token: Dict[int, str] = {}
+    
+    for token_str, token_id in raw_vocab.items():
+
+        cleaned_str = token_str.replace("Ġ", " ").replace("˙G", " ")
+
+        id_to_token[int(token_id)] = cleaned_str
+        
+    return id_to_token

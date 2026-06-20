@@ -1,0 +1,57 @@
+[
+  {
+    "prompt": "What is the sum of 2 and 3?",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "What is the sum of 265 and 345?",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "Greet shrek",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "Greet john",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "Reverse the string 'hello'",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "Reverse the string 'world'",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "What is the square root of 16?",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "Calculate the square root of 144",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "Replace all numbers in \"Hello 34 I'm 233 years old\" with NUMBERS",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "Replace all vowels in 'Programming is fun' with asterisks",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  },
+  {
+    "prompt": "Substitute the word 'cat' with 'dog' in 'The cat sat on the mat with another cat'",
+    "name": "error_extraction_failed",
+    "parameters": {}
+  }
+]
