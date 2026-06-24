@@ -1,6 +1,6 @@
-from typing import Dict, List
+from typing import Dict
 import json
-from llm_sdk import Small_LLM_Model
+from llm_sdk import Small_LLM_Model  # type: ignore[attr-defined]
 
 
 def load_and_clean_vocab(model: Small_LLM_Model) -> Dict[int, str]:
@@ -13,15 +13,15 @@ def load_and_clean_vocab(model: Small_LLM_Model) -> Dict[int, str]:
     try:
         with open(vocab_path, "r", encoding="utf-8") as f:
             raw_vocab = json.load(f)
-    except Exception as e:
-        raise RuntimeError(f"Failed to read vocabulary file at {vocab_path}: {e}")
+    except Exception:
+        raise RuntimeError(f"Failed to read vocabulary file at {vocab_path}")
 
     id_to_token: Dict[int, str] = {}
-    
+
     for token_str, token_id in raw_vocab.items():
 
         cleaned_str = token_str.replace("Ġ", " ").replace("˙G", " ")
 
         id_to_token[int(token_id)] = cleaned_str
-        
+
     return id_to_token
