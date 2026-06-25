@@ -37,8 +37,13 @@ class ProjectConfig:
 def load_and_validate_inputs(functions_path: str,
                              input_path: str) -> ProjectConfig:
     """
-    Loads input JSON files and validates them via Pydantic.
-    Handles missing files and invalid formatting gracefully.
+    load and parse the input from a json file and validate them
+
+    Args:
+        str: functions_path
+        str:input_path
+    Returns:
+        ProjectConfig: a class contains set of all functions and prompts
     """
     if not os.path.exists(functions_path):
         print(f"Error: not found'{functions_path}'", file=sys.stderr)

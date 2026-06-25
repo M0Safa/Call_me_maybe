@@ -1,8 +1,11 @@
+FUNCTIONS = --functions_definition data/input/functions_definition.json
+PROMPTS = --input data/input/function_calling_tests.json
+OUTPUT = --output data/output/function_calls.json
 install:
-	uv pip install pydantic numpy flake8 mypy
+	uv sync
 
 run:
-	uv run python -m src 
+	uv run python -m src $(FUNCTIONS) $(PROMPTS) $(OUTPUT)
 
 debug:
 	uv run python -m pdb -m src

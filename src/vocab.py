@@ -5,8 +5,12 @@ from llm_sdk import Small_LLM_Model  # type: ignore[attr-defined]
 
 def load_and_clean_vocab(model: Small_LLM_Model) -> Dict[int, str]:
     """
-    Loads the vocabulary file from the SDK and cleans the tokens
-    by converting tokenizer space symbols back into standard spaces.
+    clean the vocab and return them
+
+    Args:
+        Small_LLM_Model: the model object
+    Returns:
+        Dict[int, str]: the cleaned vocab
     """
     vocab_path = model.get_path_to_vocab_file()
 

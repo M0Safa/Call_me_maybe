@@ -15,6 +15,15 @@ class JsonStateEngine:
         self.vocab = vocab_map
 
     def choose_function(self) -> str:
+        """
+        choose the suitable function for a prompt
+
+        Args:
+            self
+
+        Returns:
+            str: the name of choosed function
+        """
         digits = "0123456789"
         digit_tokens = self.model.encode(digits).tolist()
         if isinstance(digit_tokens[0], list):
@@ -63,6 +72,15 @@ class JsonStateEngine:
         return f"{self.choosed_fun.name}"
 
     def extract_parameters(self) -> dict:
+        """
+        extract the parameters from the prompt for a function
+
+        Args:
+            self
+
+        Returns:
+            dict: the value of each parameter for it name [str, Any]
+        """
         extracted_params: dict[str, Any] = {}
         prompt_token_ids = self.model.encode(self.prompt).tolist()
         if isinstance(prompt_token_ids[0], list):
@@ -103,7 +121,7 @@ class JsonStateEngine:
             for tid in prompt_token_ids:
                 tstr = self.vocab[tid]
 
-                if param_type == "number":
+                if param_type in ["number", "int"]:
                     if not all(c in "0123456789.-" for c in tstr.strip()):
                         continue
 
@@ -112,7 +130,7 @@ class JsonStateEngine:
             first_token_id = int(np.argmax(mask))
 
             if mask[first_token_id] == -float('inf'):
-                if param_type == "number":
+                if param_type in ["number", "int"]:
                     extracted_params[param_name] = 0
                 else:
                     extracted_params[param_name] = ""
@@ -133,7 +151,7 @@ class JsonStateEngine:
                     if not is_string:
                         break
 
-                if param_type == "number":
+                if param_type in ["number", "int"]:
                     if not all(c in "0123456789.-" for
                                c in current_str.strip()):
                         break
@@ -158,7 +176,7 @@ class JsonStateEngine:
                     extracted_params[param_name] = extracted_value_str
             except ValueError:
                 extracted_params[param_name] = 0 \
-                    if param_type == "number" else ""
+                    if param_type in ["number", "int"] else ""
             prompt += f"{extracted_params[param_name]}\n"
 
         return extracted_params

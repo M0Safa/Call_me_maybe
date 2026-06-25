@@ -13,17 +13,6 @@ except ImportError:
     sys.exit(1)
 
 
-def generate_constrained_json(engine: JsonStateEngine) -> dict:
-    function = engine.choose_function()
-    parameters = engine.extract_parameters()
-    prompt_entry = {
-            "prompt": engine.prompt,
-            "name": function,
-            "parameters": parameters
-        }
-    return prompt_entry
-
-
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--functions_definition",
@@ -45,9 +34,14 @@ def main() -> None:
     for i, p in enumerate(config.prompts):
         print(f"Running Prompt [{i + 1}/{len(config.prompts)}]: '{p.prompt}'")
         engine = JsonStateEngine(p, config.functions, vocab_map, model)
-        json_output = generate_constrained_json(engine)
-        output_results.append(json_output)
-
+        function = engine.choose_function()
+        parameters = engine.extract_parameters()
+        prompt_entry = {
+            "prompt": engine.prompt,
+            "name": function,
+            "parameters": parameters
+        }
+        output_results.append(prompt_entry)
     output_path = args.output
     output_dir = os.path.dirname(output_path)
     if output_dir:
