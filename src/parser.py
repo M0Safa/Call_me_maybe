@@ -6,7 +6,7 @@ import sys
 
 
 class ParameterSchema(BaseModel):
-    type: Literal["string", "number", "boolean", "int"]
+    type: Literal["string", "number", "boolean", "integer"]
 
 
 class FunctionDefinition(BaseModel):

@@ -121,7 +121,7 @@ class JsonStateEngine:
             for tid in prompt_token_ids:
                 tstr = self.vocab[tid]
 
-                if param_type in ["number", "int"]:
+                if param_type in ["number", "integer"]:
                     if not all(c in "0123456789.-" for c in tstr.strip()):
                         continue
 
@@ -130,7 +130,7 @@ class JsonStateEngine:
             first_token_id = int(np.argmax(mask))
 
             if mask[first_token_id] == -float('inf'):
-                if param_type in ["number", "int"]:
+                if param_type in ["number", "integer"]:
                     extracted_params[param_name] = 0
                 else:
                     extracted_params[param_name] = ""
@@ -151,7 +151,7 @@ class JsonStateEngine:
                     if not is_string:
                         break
 
-                if param_type in ["number", "int"]:
+                if param_type in ["number", "integer"]:
                     if not all(c in "0123456789.-" for
                                c in current_str.strip()):
                         break
@@ -170,13 +170,13 @@ class JsonStateEngine:
             try:
                 if param_type == "number":
                     extracted_params[param_name] = float(extracted_value_str)
-                elif param_type == "int":
+                elif param_type == "integer":
                     extracted_params[param_name] = int(extracted_value_str)
                 else:
                     extracted_params[param_name] = extracted_value_str
             except ValueError:
                 extracted_params[param_name] = 0 \
-                    if param_type in ["number", "int"] else ""
+                    if param_type in ["number", "integer"] else ""
             prompt += f"{extracted_params[param_name]}\n"
 
         return extracted_params
